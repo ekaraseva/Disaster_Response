@@ -30,7 +30,7 @@ For plotting:
 - matplotlib
 - seaborn
 
-## 3. How To Interact With Your Project - 
+## 3. How to interact with the project
 The following Python scripts should be able to run data preparation and model selection steps:
 
 - python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db
@@ -41,4 +41,4 @@ To run the web app the following steps shall be executed:
 - go to app folder 'cd app'
 - python run.py
 - open new ternimal and execute env|grep WORK, you will sea SPACEID and SPACEDOMAIN address
-- open browser and type https://SPACEID-3001.SPACEDOMAIN
+- open browser and type https://SPACEID-3001.SPACEDOMAIN (SPACEID and SPACEDOMAIN from step above)
