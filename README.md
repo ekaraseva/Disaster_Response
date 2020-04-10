@@ -42,3 +42,7 @@ To run the web app the following steps shall be executed:
 - python run.py
 - open new ternimal and execute env|grep WORK, you will sea SPACEID and SPACEDOMAIN address
 - open browser and type https://SPACEID-3001.SPACEDOMAIN (SPACEID and SPACEDOMAIN from step above)
+
+## 4. App screenshots
+![Image 1](https://github.com/ekaraseva/Disaster_Response/blob/master/app_results_screenshot.JPG)
+![Image 2](https://github.com/ekaraseva/Disaster_Response/blob/master/app_screenshot.JPG)
