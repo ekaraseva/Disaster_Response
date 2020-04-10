@@ -1,4 +1,4 @@
-
+# download libraries
 import json
 import plotly
 import pandas as pd
@@ -19,6 +19,12 @@ from nltk.stem.porter import PorterStemmer
 app = Flask(__name__)
 
 def tokenize(text):
+    '''Tokenisation function
+    
+    INTUP: text - string 
+    
+    OUTPUT: clean_tokens - subset of tokenized words
+    '''
     
     # remove urls
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
@@ -57,7 +63,6 @@ df = pd.read_sql_table('Data', engine)
 
 # load model
 model = joblib.load("../models/classifier.pkl")
-
 
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')

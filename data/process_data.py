@@ -7,6 +7,17 @@ from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
+    ''' Function to load data 
+    
+    INPUT: 
+    messages_filepath - messages.csv file file containing original messages
+    categories_filepath - categories.csv file containing allocation of messages
+    per disaster category 
+    
+    OUTPUT: 
+    df - combained dataframe containing messages + categories
+    '''
+    
     # load messages dataset
     messages = pd.read_csv(messages_filepath)
     
@@ -42,7 +53,15 @@ def load_data(messages_filepath, categories_filepath):
     df = pd.concat([df, categories], axis=1)    
     return df
 
-def clean_data(df):  
+def clean_data(df): 
+    ''' Cleaning function
+    
+    INPUT: df - dataframe containing messages and categories where duplicates, 
+    empty columns and very short messages (#NAME)
+    
+    OUTPUT: df - cleaned dataframe
+    '''
+    
     # drop duplicates
     df.drop_duplicates(inplace=True)
     df=df.reset_index(drop=True)
@@ -60,6 +79,8 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
+    '''Save data to database'''
+    
     engine = create_engine('sqlite:///' + str(database_filename))
     df.to_sql('Data', engine, if_exists='replace', index=False)
     pass  

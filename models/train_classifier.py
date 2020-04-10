@@ -30,7 +30,15 @@ from sklearn.ensemble import AdaBoostClassifier
 
 
 def load_data(database_filepath):
-    # load data from database
+    ''' Load data from db. file
+    
+    INPUT: database_filepath - file name and path
+    
+    OUTPUT: 
+    X - dataframe with messages
+    Y - dataframe with categories
+    category_names - names of categories'''
+    
     engine = create_engine('sqlite:///' + str(database_filepath))
     df = pd.read_sql("SELECT * FROM Data", engine)
     
@@ -42,6 +50,13 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    '''Tokenisation function
+    
+    INTUP: text - string 
+    
+    OUTPUT: clean_tokens - subset of tokenized words
+    '''
+    
     # remove urls
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     
@@ -74,6 +89,16 @@ def tokenize(text):
     return clean_tokens
 
 def prec_recall_report(y_true, y_pred):
+    ''' Function that calculates precision, recall and f-score 
+    for each predictied category
+    
+    INPUT: 
+    y_true - true value of y (y_test)
+    y_pred - predicted values of y
+    
+    OUTPUT: scoring results - dataframe with columns precision, recall and f-score 
+    and 35 categories in rows 
+    '''
     c=0
     #empty df
     scoring_results=pd.DataFrame(columns=[0, 1, 2, 3])
@@ -91,11 +116,26 @@ def prec_recall_report(y_true, y_pred):
     return scoring_results
 
 def f1_score_eval(y_true, y_pred):
+    ''' Function that calculates average f-score for 35 categories
+    
+    INPUT: 
+    y_true - true value of y (y_test)
+    y_pred - predicted values of y
+    
+    OUTPUT: mean value of f-scores 
+    '''
+    
     scoring_results=prec_recall_report(y_true, y_pred)
     
     return scoring_results['fscore'].mean()
 
 def build_model1():
+    ''' Define classification model with GridSearch, 
+    the running time is very long, so this is a backup function
+    to search through parameters (NOT USED) 
+    model search was performed in jupyter notebook
+    '''
+    
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()), 
@@ -114,6 +154,8 @@ def build_model1():
     return cv
 
 def build_model():
+    ''' Define single classification model, used for fitting and prediction
+    '''
     model = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
@@ -125,6 +167,16 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    ''' Function that prints evaluation of model for each category
+    
+    INPUT: 
+    model - classification model
+    X_test - subset of messages to test
+    Y_test - correct labaling of test subset
+    categories_names - names of categories
+    
+    OUTPUT: None
+    '''
     Y_pred=model.predict(X_test)
     result=prec_recall_report(Y_test, Y_pred)
     print (result)
@@ -132,6 +184,8 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    ''' Save model to pkl file
+    '''
     filename = model_filepath
     pickle.dump(model, open(filename, 'wb'))
     
