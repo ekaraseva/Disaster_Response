@@ -1,10 +1,22 @@
 # Disaster_Response
+This project is a part of the Udacity's Data Scientist Nanodegree Program.
 
 ## 1. Installation
+- pandas
+- numpy
+- nlkt
+- re
+- pickle
+- sklearn
+- sqlalchemy
+- sqlite3
 
-## 2. Project Motivation
+For plotting:
+- matplotlib
+- seaborn
 
-## 3.File Descriptions
+
+## 3. File Descriptions
 
 ## 4. How To Interact With Your Project - 
 When your project isn't meant to be interactive or used for other projects, you should instead talk 
